@@ -212,6 +212,7 @@ python -u evaluate_ellseg.py \
 - 眼动+瞳孔+IMU联合建模
 - 对真实眼镜设备数据编写转换脚本
 - 增加更多可视化，如scanpath、heatmap、局部瞳孔片段分析
+- 打通真实硬件流程
 
 ---
 
