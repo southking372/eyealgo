@@ -1,6 +1,6 @@
 # 👁️eyealgo
 
-> 一个在HPC上逐步搭建的眼动处理与瞳孔检测实验仓库。  
+> 一个逐步搭建的眼动处理与瞳孔检测实验仓库。  
 > 当前已经跑通两条主线：**数值层眼动处理链**与**图像层真实瞳孔检测链**。
 
 ![Python](https://img.shields.io/badge/Python-3.10-blue)
@@ -204,59 +204,8 @@ python -u evaluate_ellseg.py \
 
 ---
 
-## 🛠️已踩过的坑
 
-### 1. `REMoDNaV`与NumPy 2.x不兼容
-
-解决方法：
-
-```bash
-python -m pip install "numpy<2"
-```
-
-### 2. EllSeg老代码使用`np.int`
-
-需要将老写法替换为内置`int`。
-
-### 3. EllSeg默认按CUDA加载checkpoint
-
-当前实验里采用CPU推理，需要给`torch.load`加`map_location=torch.device('cpu')`。
-
-### 4. 输入视频路径不能写坏链接
-
-最开始把占位符`YOUR_VIDEO`直接做成了软链接，导致OpenCV无法读帧。后来改为：
-
-```bash
-ffmpeg -y -i "$V" -vcodec libx264 -pix_fmt yuv420p eye0.mp4
-```
-
-### 5. `debug`分区只适合短调试
-
-长推理任务不要放在`debug`，否则会因为时限被杀掉。
-
----
-
-## 📌当前阶段的意义
-
-目前这个仓库还不是完整的最终系统，而是一套**最小可运行眼动实验基线**。
-
-它的价值在于：
-
-- 已经验证数值层眼动处理链可以独立跑通
-- 已经验证真实眼区视频可以接入深度模型并生成瞳孔检测结果
-- 后续若接入真实眼镜设备，只需要补上**设备原始数据 -> 统一输入格式**这一层
-
-也就是说，后面新增工作的重点不是重写整套算法，而是：
-
-```text
-raw device output
--> conversion script
--> existing pipeline reuse
-```
-
----
-
-## 📍后续可扩展方向
+## 📍后续施工方向
 
 - 更稳健的真实瞳孔检测与椭圆拟合
 - 眼动事件深度学习模型，如U'n'Eye
@@ -270,7 +219,7 @@ raw device output
 
 该仓库当前以研究开发为主，侧重：
 
-- HPC上快速复现实验
+- 快速复现实验
 - 分层打通软件链
 - 便于后续接入真实硬件数据
 
